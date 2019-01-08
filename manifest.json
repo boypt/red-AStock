@@ -2,7 +2,7 @@
   "name": "Red A Stock",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "A tool for collecting A Stock securities and fund prices.",
+  "description": "A tool for collecting A stock security and fund prices.",
   "homepage_url": "https://github.com/pentie/red-AStock",
   "icons": {
     "16": "images/favicon.png",
@@ -11,7 +11,7 @@
   },
   "default_locale": "zh_CN",
   "browser_action": {
-    "name": "Click to get URL"
+    "name": "Red A Stock"
   },
   "background": {
     "scripts": [
