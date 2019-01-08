@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Red A Stock</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <link rel="stylesheet" href="src/vendor/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="src/vendor/css/bootstrap.min.css">
+  <link rel="stylesheet" href="src/vendor/css/sco.message.min.css">
+  <link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="src/css/custom.css">
+
+  <!-- JavaScript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="src/vendor/nanobar.min.js"></script>
+  <script type="text/javascript" src="src/vendor/jquery.min.js"></script>
+  <script type="text/javascript" src="src/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="src/vendor/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="src/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="src/vendor/sco.message.min.js"></script>
+  <script type="text/javascript" src="src/vendor/clipboard.min.js"></script>
+  <script type="text/javascript" src="src/vendor/underscore-min.js"></script>
+  <script type="text/javascript" src="src/js/js_templates.js"></script>
+  <script type="text/javascript" src="src/js/stock.js"></script>
+  <script type="text/javascript" src="src/js/main.js"></script>
+</head>
+
+<body>
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container voffset4">
+    <div class="row">
+      <div class="col col-2">
+        <div class="pfbtn">
+          <ul class="nav flex-column" id="profile_nav"></ul>
+          <button id="btn_add_profile" class="btn btn-secondary btn-sm btn-block">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <hr />
+        <div class="form-group">
+          <input type="checkbox" id="is_fund" name="is_fund"> 基金
+          <textarea class="form-control input-sm" rows="8" id="sharenums"></textarea>
+        </div>
+      </div>
+
+      <div class="col col-10">
+        <div class="d-flex justify-content-between">
+          <div id="last_update_card" class="card">
+            <div class="card-block">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span id="last_update"></span>
+            </div>
+          </div>
+
+          <div class="main_btns">
+            <button class="btn btn-success" id="update_share">
+              <i class="fa fa-refresh" aria-hidden="true"></i>
+              更新数据
+            </button>
+            <button class="btn btn-info" data-toggle="modal" data-target="#neat_val_window">
+              <i class="fa fa-file" aria-hidden="true"></i>
+              输出净值
+            </button>
+            <button class="btn btn-danger" id="clear_current">
+              <i class="fa fa-remove" aria-hidden="true"></i>
+              清除本组
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 table-responsive" id="data_table_div"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="neat_val_window" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="syncLabel">当前净值/市价</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control" id="neat_val" readonly></textarea>
+          <button class="btn btn-secondary btn-sm" id="neat_val_copy" data-clipboard-target="#neat_val">复制</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="sync_svr" tabindex="-1" role="dialog" aria-labelledby="syncLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="syncLabel">数据同步</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <label class="col-sm-2 control-label" for="sync_idnt">Code</label>
+            <div class="">
+              <input type="text" class="form-control" id="sync_idnt"></input>
+            </div>
+
+            <label class="col-sm-2 control-label" for="sync_date">Date</label>
+            <div class="">
+              <input type="text" class="form-control" id="sync_date" readonly></input>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="sync_upload">
+            <i class="fa fa-upload" aria-hidden="true"></i>
+            Upload
+          </button>
+          <button type="button" class="btn btn-warning" id="sync_list">
+            <i class="fa fa-list" aria-hidden="true"></i>
+            List
+          </button>
+          <button type="button" class="btn btn-primary" id="sync_download">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            Download
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="chart" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

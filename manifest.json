@@ -1,0 +1,26 @@
+{
+  "name": "Red A Stock",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "A Stock",
+  "homepage_url": "http://extensionizr.com",
+  "icons": {
+    "16": "images/favicon.png",
+    "48": "images/favicon.png",
+    "128": "images/favicon.png"
+  },
+  "default_locale": "zh_CN",
+  "browser_action": {
+    "name": "Click to get URL"
+  },
+  "background": {
+    "scripts": [
+      "src/bg/background.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "clipboardWrite"
+  ],
+  "content_security_policy": "script-src 'self' https://hq.sinajs.cn/; object-src 'self'"
+}
