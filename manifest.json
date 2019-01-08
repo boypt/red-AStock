@@ -2,8 +2,8 @@
   "name": "Red A Stock",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "A Stock",
-  "homepage_url": "http://extensionizr.com",
+  "description": "A tool for collecting A Stock securities and fund prices.",
+  "homepage_url": "https://github.com/pentie/red-AStock",
   "icons": {
     "16": "images/favicon.png",
     "48": "images/favicon.png",
