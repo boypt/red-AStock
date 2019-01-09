@@ -3,10 +3,10 @@
     $(function () {
     window._bar = new Nanobar();
     window.render = {
-        fund: JST['tpl_fundchart'],
-        stock: JST['tpl_stockchart'],
-        securityname: JST['tpl_securityname'],
-        profilobtn: JST['tpl_profilobtn']
+        fund: _.template($("#tpl_fundchart").text()),
+        stock: _.template($("#tpl_stockchart").text()),
+        securityname: _.template($("#tpl_securityname").text()),
+        profilobtn: _.template($("#tpl_profilobtn").text())
     };
     _ui_init();
     _reg_event_handlers();

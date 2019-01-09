@@ -1,8 +1,8 @@
 {
-  "name": "Red A Stock",
-  "version": "0.0.1",
+  "name": "股票基金数据小工具(A股)",
+  "version": "0.0.2",
   "manifest_version": 2,
-  "description": "A tool for collecting A stock security and fund prices.",
+  "description": "收集整理A股股票基金价格、净值的小工具",
   "homepage_url": "https://github.com/pentie/red-AStock",
   "icons": {
     "16": "images/favicon.png",
@@ -22,5 +22,5 @@
   "permissions": [
     "clipboardWrite"
   ],
-  "content_security_policy": "script-src 'self' https://hq.sinajs.cn/; object-src 'self'"
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://hq.sinajs.cn/; object-src 'self'"
 }
