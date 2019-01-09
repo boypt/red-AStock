@@ -5,9 +5,10 @@
   "description": "收集整理A股股票基金价格、净值的小工具",
   "homepage_url": "https://github.com/pentie/red-AStock",
   "icons": {
-    "16": "images/favicon.png",
-    "48": "images/favicon.png",
-    "128": "images/favicon.png"
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "96": "images/icon96.png",
+    "128": "images/icon128.png"
   },
   "default_locale": "zh_CN",
   "browser_action": {
