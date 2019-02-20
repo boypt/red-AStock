@@ -1,6 +1,6 @@
 {
   "name": "股票基金数据小工具(A股)",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "manifest_version": 2,
   "description": "收集整理A股股票基金价格、净值的小工具",
   "homepage_url": "https://github.com/pentie/red-AStock",
