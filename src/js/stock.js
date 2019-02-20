@@ -88,7 +88,7 @@ Portfolio.prototype.init_data_table = function () {
 
     var colms, drawcb;
 
-    var val_render = function ( data, type, row ) {
+    var val_render = function ( data, type, row, meta ) {
         var cls = data.substr(0,1) === '-' ? "price negtive":"price";
         return '<span class="'+cls+'">'+data+'</span>';
     }
@@ -161,6 +161,12 @@ Portfolio.prototype.init_data_table = function () {
                 { "title": "last_close", "visible": false },
                 { "title": "现价",
                     "render": val_render,
+                    "data": function( row, type, set, meta ) {
+                        if ( parseFloat(row[meta.col]) == 0 ) {
+                            return row[meta.col - 1]
+                        }
+                        return row[meta.col];
+                    }
                 },
                 // { "title": "high", "visible": false },
                 // { "title": "low", "visible": false },
@@ -169,14 +175,20 @@ Portfolio.prototype.init_data_table = function () {
                 // { "title": "vol", "visible": false },
                 // { "title": "amt", "visible": false },
                 { "title": "涨跌",
-                    "render": function ( data, type, row ) {
-                        var diff = (row[4] - row[3]).toFixed(4).replace(/\.?0*$/,'');
-                        return val_render(diff, type, row);
+                    "render": function ( data, type, row, meta ) {
+                        var diff = "0";
+                        if ( parseFloat(row[4]) > 0 ){
+                            diff = (row[4] - row[3]).toFixed(4).replace(/\.?0*$/,'');
+                        }
+                        return val_render(diff, type, row, meta);
                     }
                 },
                 { "title": "涨跌幅",
-                    "render": function ( data, type, row ) {
-                        var diffamt = (((row[4] - row[3])/row[3])*100).toFixed(2);
+                    "render": function ( data, type, row, meta ) {
+                        var diffamt = "0";
+                        if ( parseFloat(row[4]) > 0 ){
+                            diffamt = (((row[4] - row[3])/row[3])*100).toFixed(2);
+                        }
                         return val_render(diffamt+'%', type, row);
                     }
                 }
@@ -186,9 +198,10 @@ Portfolio.prototype.init_data_table = function () {
                 var tb = this.api();
                 tb.rows().every( function () {
                     var row = this.data();
-                    var incr = row[4] - row[3];
-                    if(incr > 0) { $(this.node()).addClass('reddata'); }
-                    else if (incr < 0) { $(this.node()).addClass('greendata'); }
+                    var cur = parseFloat(row[4]), last_close = parseFloat(row[3]);
+                    var incr = cur - last_close;
+                    if(cur > 0 && incr > 0) { $(this.node()).addClass('reddata'); }
+                    else if (cur > 0 && incr < 0) { $(this.node()).addClass('greendata'); }
                 });
             }
         }
